@@ -13,10 +13,12 @@ data class DimensionReport<T>(
     val dimensionName: String,
     val unity : String?= null,
     private val devices: List<Device>,
+    val filter : (Device) -> Boolean = {true},
     val dimensionSelector: (Device) -> T
 ) {
 
     val dimensionGroups : List<DimensionGroup<T>> = devices
+        .filter(filter)
         .groupBy(dimensionSelector)
         .mapValues { entry -> entry.value.sumByDouble { it.percent }.truncateDecimals(1) }
         .map { DimensionGroup(it.key,it.value) }
