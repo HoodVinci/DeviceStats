@@ -54,7 +54,9 @@ class HtmlOutput(private val outputPath: String) : Output {
         thead {
             tr {
                 th { +"name" }
+                th { +"bucket" }
                 th { +"viewport" }
+                th { +"dpSize" }
                 th { +"diagonal" }
                 th { +"type" }
             }
@@ -63,7 +65,9 @@ class HtmlOutput(private val outputPath: String) : Output {
             report.devices.forEach {
                 tr {
                     td { +it.name }
+                    td { +it.dpiBukcket.toString().toLowerCase() }
                     td { +it.viewPort.toString() }
+                    td { +it.dpSize.toString() }
                     td { +"${it.diagonalInInch}\"" }
                     td { +"${it.type}" }
                 }

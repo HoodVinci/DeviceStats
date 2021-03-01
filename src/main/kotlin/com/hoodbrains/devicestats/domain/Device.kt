@@ -1,3 +1,4 @@
+import com.hoodbrains.devicestats.domain.findBucket
 import kotlin.math.*
 
 data class Size(val width: Int, val height: Int) {
@@ -22,7 +23,9 @@ data class Device(
     val percent: Double
 ) {
 
-    val viewPort: Size = pixelSize.pixelToDp(densityPpi)
+    val dpiBukcket = findBucket(densityPpi)
+    val viewPort: Size = pixelSize.pixelToDp(dpiBukcket.dpi)
+    val dpSize: Size = pixelSize.pixelToDp(densityPpi)
     val ratio = pixelSize.ratio
     val type = if (viewPort.minSide < 600) DeviceType.Smartphone else DeviceType.Tablet
     val diagonalInInch = (pixelSize.diagonal / densityPpi).truncateDecimals(1)
